@@ -4,8 +4,10 @@
 #include "RogueCharacter.h"
 #include "Projectiles/RogueProjectileMagic.h"
 #include "EnhancedInputComponent.h"
+#include "NiagaraFunctionLibrary.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ARogueCharacter::ARogueCharacter()
@@ -71,15 +73,33 @@ void ARogueCharacter::Look(const FInputActionInstance& InValue)
 
 void ARogueCharacter::PrimaryAttack()
 {
+	PlayAnimMontage(AttackMontage);
+	
+	FTimerHandle AttackTimerHander;
+	
+	const float AttackDelayTime = 0.2f;
+	
+	UNiagaraFunctionLibrary::SpawnSystemAttached(CastingEffect, GetMesh(), MuzzleSocketName,
+		FVector::ZeroVector, FRotator::ZeroRotator, EAttachLocation::Type::SnapToTarget, true);
+	
+	UGameplayStatics::PlaySound2D(this, CastingSound);
+	
+	GetWorldTimerManager().SetTimer(AttackTimerHander, this, &ARogueCharacter::AttackTimerElapsed, AttackDelayTime);
 	
 	
+}
+
+void ARogueCharacter::AttackTimerElapsed()
+{
 	FVector SpawnLocation = GetMesh()->GetSocketLocation(MuzzleSocketName);
 	FRotator SpawnRotation = GetControlRotation();
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.Instigator = this;
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+    	
+	AActor* NewProjectile = GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnLocation, SpawnRotation, SpawnParams);
 	
-	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnLocation, SpawnRotation, SpawnParams);
+	MoveIgnoreActorAdd(NewProjectile);
 }
 
 // Called every frame
