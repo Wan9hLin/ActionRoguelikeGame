@@ -44,6 +44,7 @@ void ARogueCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 	EnhancedInput->BindAction(Input_Move, ETriggerEvent::Triggered, this, &ARogueCharacter::Move);
 	EnhancedInput->BindAction(Input_Look, ETriggerEvent::Triggered, this, &ARogueCharacter::Look);
 	EnhancedInput->BindAction(Input_PrimaryAttack, ETriggerEvent::Triggered, this, &ARogueCharacter::PrimaryAttack);
+	EnhancedInput->BindAction(Input_Jump, ETriggerEvent::Triggered, this, &ARogueCharacter::StartJump);
 }
 
 void ARogueCharacter::Move(const FInputActionValue& InValue)
@@ -69,6 +70,11 @@ void ARogueCharacter::Look(const FInputActionInstance& InValue)
 	
 	AddControllerPitchInput(InputValue.Y); 
 	AddControllerYawInput(InputValue.X);
+}
+
+void ARogueCharacter::StartJump()
+{
+	Jump();
 }
 
 void ARogueCharacter::PrimaryAttack()
