@@ -17,13 +17,10 @@ ARogueItemChest::ARogueItemChest()
 	LidMeshComponent->SetupAttachment(BaseMeshComponent);
 }
 
-// Called when the game starts or when spawned
-void ARogueItemChest::BeginPlay()
+void ARogueItemChest::Interact()
 {
-	Super::BeginPlay();
-	
+	//Play animation
 	SetActorTickEnabled(true);
-	
 }
 
 // Called every frame
