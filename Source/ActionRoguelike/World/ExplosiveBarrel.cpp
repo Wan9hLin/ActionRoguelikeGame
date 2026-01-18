@@ -65,10 +65,19 @@ void AExplosiveBarrel::Explode()
 {
 	bExploded = true;
 	
-	ActiveBurningEffectComp->Deactivate();
-	ActiveBurningSoundComp->Stop();
+	if (ActiveBurningEffectComp != nullptr)
+	{
+		ActiveBurningEffectComp->Deactivate();
+	}
+	if (ActiveBurningSoundComp != nullptr)
+	{
+		ActiveBurningSoundComp->Stop();
+	}
 	
 	RadialForceComponent->FireImpulse();
+	
+	StaticMeshComponent->AddImpulse(FVector::UpVector * 1000, NAME_None, true);
+	StaticMeshComponent->AddAngularImpulseInDegrees(FVector::RightVector * 1000, NAME_None, true);
 	
 	UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ExplosionEffect, GetActorLocation(), FRotator::ZeroRotator);
 	UGameplayStatics::PlaySoundAtLocation(this, ExplosionSound, GetActorLocation(), FRotator::ZeroRotator);

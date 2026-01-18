@@ -42,6 +42,7 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category="Explosive Barrel")
 	TObjectPtr<USoundBase> ExplosionSound;
 	
+	UFUNCTION(BlueprintCallable)
 	void Explode();
 	
 	bool bExploded = false;
