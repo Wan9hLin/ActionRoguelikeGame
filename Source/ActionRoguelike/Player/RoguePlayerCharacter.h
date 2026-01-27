@@ -6,8 +6,8 @@
 #include "GameFramework/Character.h"
 #include "RoguePlayerCharacter.generated.h"
 
+class ARogueProjectile;
 class UNiagaraSystem;
-class ARogueProjectileMagic;
 struct FInputActionInstance;
 struct FInputActionValue;
 class UInputAction;
@@ -27,7 +27,13 @@ public:
 protected:
 	
 	UPROPERTY(EditDefaultsOnly, Category="PrimaryAttack")
-	TSubclassOf<ARogueProjectileMagic> ProjectileClass;
+	TSubclassOf<ARogueProjectile> ProjectileMagicClass;
+	
+	UPROPERTY(EditDefaultsOnly, Category="PrimaryAttack")
+	TSubclassOf<ARogueProjectile> ProjectileBlackholeClass;
+	
+	UPROPERTY(EditDefaultsOnly, Category="PrimaryAttack")
+	TSubclassOf<ARogueProjectile> ProjectileTeleportClass;
 	
 	UPROPERTY(EditDefaultsOnly, Category="PrimaryAttack")
 	TObjectPtr<UNiagaraSystem> CastingEffect;
@@ -53,6 +59,12 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category="Input");
 	TObjectPtr<UInputAction> Input_Jump;
 	
+	UPROPERTY(EditDefaultsOnly, Category="Input");
+	TObjectPtr<UInputAction> Input_SecondaryAttack;
+	
+	UPROPERTY(EditDefaultsOnly, Category="Input");
+	TObjectPtr<UInputAction> Input_Skill;
+	
 	UPROPERTY(VisibleAnywhere, Category="Components")
 	TObjectPtr<UCameraComponent> CameraComponent;
 	
@@ -68,14 +80,15 @@ protected:
 	
 	void StartJump();
 	
-	void PrimaryAttack();
+	void StartProjectileAttack(TSubclassOf<ARogueProjectile> ProjectileClass);
 	
-	void AttackTimerElapsed();
+	void AttackTimerElapsed(TSubclassOf<ARogueProjectile> ProjectileClass);
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 

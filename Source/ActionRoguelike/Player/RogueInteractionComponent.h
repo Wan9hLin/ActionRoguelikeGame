@@ -10,7 +10,7 @@
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class ACTIONROGUELIKE_API URogueInteractionComponent : public UActorComponent
 {
-	GENERATED_BODY()
+	GENERATED_BODY() 
 	
 protected:
 	
