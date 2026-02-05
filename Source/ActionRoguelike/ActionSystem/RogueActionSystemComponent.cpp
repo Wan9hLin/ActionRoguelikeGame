@@ -6,7 +6,7 @@
 // Sets default values for this component's properties
 URogueActionSystemComponent::URogueActionSystemComponent()
 {
-	
+	  
 }
 
 void URogueActionSystemComponent::ApplyHealthChange(float InValueChange)
