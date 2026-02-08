@@ -6,11 +6,17 @@
 #include "Projectiles/RogueProjectileMagic.h"
 #include "EnhancedInputComponent.h"
 #include "NiagaraFunctionLibrary.h"
+#include "RogueGameTypes.h"
 #include "ActionSystem/RogueActionSystemComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/PawnMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/GameplayStatics.h"
+
+
+TAutoConsoleVariable<float> CVar_ProjectileAdjustmentDebugDrawing(TEXT("game.projectile.debugdrawing"), 0.0f, 
+	TEXT("Enable projectile aim adjustment debug rendering. (0 = off, > 0 is duration)"),
+	ECVF_Cheat);
 
 // Sets default values
 ARoguePlayerCharacter::ARoguePlayerCharacter()
@@ -110,13 +116,54 @@ void ARoguePlayerCharacter::StartProjectileAttack(TSubclassOf<ARogueProjectile> 
 void ARoguePlayerCharacter::AttackTimerElapsed(TSubclassOf<ARogueProjectile> ProjectileClass)
 {
 	FVector SpawnLocation = GetMesh()->GetSocketLocation(MuzzleSocketName);
-	FRotator SpawnRotation = GetControlRotation();
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.Instigator = this;
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-    	
-	AActor* NewProjectile = GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnLocation, SpawnRotation, SpawnParams);
+	
+	FVector EyeLocation = CameraComponent->GetComponentLocation();
+	FRotator EyeRotation = GetControlRotation();
+	
+	FVector TraceEnd = EyeLocation +(EyeRotation.Vector() * 5000.0f);
+	
+	FCollisionQueryParams QueryParams;
+	QueryParams.AddIgnoredActor(this);
+	
+	UWorld* World = GetWorld();
+	
+	FVector AdjustTargetLoaction;
+	FHitResult Hit;
+	if (World->LineTraceSingleByChannel(Hit, EyeLocation, TraceEnd, COLLISION_PROJECTILE, QueryParams))
+	{
+		AdjustTargetLoaction = Hit.Location;
+	}
+	else
+	{
+		AdjustTargetLoaction = TraceEnd;
+	}
+	
+	FRotator SpawnRotation = (AdjustTargetLoaction - SpawnLocation).Rotation();
+	
+	AActor* NewProjectile = World->SpawnActor<AActor>(ProjectileClass, SpawnLocation, SpawnRotation, SpawnParams);
 	MoveIgnoreActorAdd(NewProjectile);
+	
+#if !UE_BUILD_SHIPPING
+	float DebugDrawDuration = CVar_ProjectileAdjustmentDebugDrawing.GetValueOnGameThread();
+	if (DebugDrawDuration > 0.0f)
+	{
+		// the hit location or trace end
+		DrawDebugBox(World, AdjustTargetLoaction, FVector(20.0f), FColor::Green, false, DebugDrawDuration);
+	
+		// adjustment line trace
+		DrawDebugLine(World, EyeLocation, TraceEnd, FColor::Green, false, DebugDrawDuration);
+	
+		// new projectile path
+		DrawDebugLine(World, SpawnLocation, AdjustTargetLoaction, FColor::Yellow, false, DebugDrawDuration);
+	
+		// original path of the projectile
+		DrawDebugLine(World, SpawnLocation, SpawnLocation + (GetControlRotation().Vector() * 5000.0f), FColor::Purple,
+			false, DebugDrawDuration);
+	}
+#endif
 }
 
 void ARoguePlayerCharacter::OnHealthChange(float newHealth, float oldHealth)
