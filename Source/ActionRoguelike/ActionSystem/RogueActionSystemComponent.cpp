@@ -6,14 +6,14 @@
 // Sets default values for this component's properties
 URogueActionSystemComponent::URogueActionSystemComponent()
 {
-	  
+	Attributes.Health = Attributes.MaxHealth;
 }
 
 void URogueActionSystemComponent::ApplyHealthChange(float InValueChange)
 {
 	float OldHealth = Attributes.Health;
 	
-	float MaxHealth = GetDefault<URogueActionSystemComponent>()->Attributes.Health;
+	float MaxHealth = Attributes.MaxHealth;
 	
 	Attributes.Health = FMath::Clamp(Attributes.Health + InValueChange, 0.0f, MaxHealth);
 	
