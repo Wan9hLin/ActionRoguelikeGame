@@ -30,6 +30,7 @@ void URogueInteractionComponent::Interact()
 	IRogueInteractionInterface::Execute_Interact(SelectedActor);
 }
 
+
 // Called every frame
 void URogueInteractionComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {

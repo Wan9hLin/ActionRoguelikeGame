@@ -2,14 +2,34 @@
 
 
 #include "RoguePickup.h"
+#include "Components/SphereComponent.h"
 
 
 // Sets default values
 ARoguePickup::ARoguePickup()
 {
-	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComponent"));
+	SphereComponent->SetSphereRadius(128.0f);
+	SphereComponent->SetCollisionProfileName("Pickup");
+	RootComponent = SphereComponent;
+	
 }
+
+void ARoguePickup::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+	SphereComponent->OnComponentBeginOverlap.AddDynamic(this, &ARoguePickup::OnSphereOverlap);
+}
+
+void ARoguePickup::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, 
+		int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	
+	//Destroy();
+}
+
+
+
 
 
 

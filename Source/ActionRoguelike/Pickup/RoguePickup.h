@@ -7,8 +7,7 @@
 #include "RoguePickup.generated.h"
 
 class USphereComponent;
-class UStaticMeshComponent;
-class USoundBase;
+
 
 
 UCLASS(Abstract)
@@ -20,13 +19,14 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category="Components");
 	TObjectPtr<USphereComponent> SphereComponent;
 	
-	UPROPERTY(EditDefaultsOnly, Category="Components");
-	TObjectPtr<UStaticMeshComponent> StaticMeshComp;
 	
-	UPROPERTY(EditDefaultsOnly, Category="Sound")
-	TObjectPtr<USoundBase> PickupSound;
-	
+	UFUNCTION()
+	virtual void OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, 
+		int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
 public:
+	virtual void PostInitializeComponents() override;
+	
 	// Sets default values for this actor's properties
 	ARoguePickup();
 	

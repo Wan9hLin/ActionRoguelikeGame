@@ -11,14 +11,15 @@ struct FRogueAttributeSet
 {
 	GENERATED_BODY()
 	
-	FRogueAttributeSet()
-		: Health() {}
+	FRogueAttributeSet(): 
+	Health(100.0f),
+	MaxHealth(100.0f) {}
 	
 	UPROPERTY(BlueprintReadOnly)
 	float Health;
 	
 	UPROPERTY(BlueprintReadOnly)
-	float MaxHealth = 200.0f;
+	float MaxHealth;
 };
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHealthChanged, float, NewHealth, float, OldHealth);
@@ -41,5 +42,5 @@ protected:
 
 public:
 	URogueActionSystemComponent();
-	
+	bool IsFullHealth() const;
 };
