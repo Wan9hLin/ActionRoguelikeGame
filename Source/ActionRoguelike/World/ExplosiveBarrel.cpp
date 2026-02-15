@@ -19,6 +19,7 @@ AExplosiveBarrel::AExplosiveBarrel()
 	StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComp"));
 	StaticMeshComponent->SetSimulatePhysics(true);
 	StaticMeshComponent->SetCollisionProfileName("PhysicsActor");
+	StaticMeshComponent->SetCanEverAffectNavigation(false);
 	RootComponent = StaticMeshComponent;
 	
 	RadialForceComponent = CreateDefaultSubobject<URadialForceComponent>(TEXT("RadialForceComp"));

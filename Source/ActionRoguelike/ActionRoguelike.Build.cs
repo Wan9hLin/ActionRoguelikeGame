@@ -10,9 +10,9 @@ public class ActionRoguelike : ModuleRules
 		
 		PublicIncludePaths.Add("ActionRoguelike");
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
 
-		PrivateDependencyModuleNames.AddRange(new string[] { "EnhancedInput", "Niagara", "VulkanRHI" });
+		PrivateDependencyModuleNames.AddRange(new string[] { "EnhancedInput", "Niagara", "AIModule" });
 
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
