@@ -7,12 +7,6 @@
 #include "Kismet/GameplayStatics.h"
 
 
-ARogueAIController::ARogueAIController()
-{
-
-}
-
-
 void ARogueAIController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -25,6 +19,8 @@ void ARogueAIController::BeginPlay()
 	
 	GetBlackboardComponent()->SetValueAsObject(TargetActor, PlayerPawn);
 }
+
+
 
 
 

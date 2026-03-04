@@ -8,18 +8,17 @@
 
 class UBehaviorTree;
 
+
 UCLASS()
 class ACTIONROGUELIKE_API ARogueAIController : public AAIController
 {
 	GENERATED_BODY()
 
-public:
-	ARogueAIController();
-
 protected:
 	
 	UPROPERTY(EditDefaultsOnly, Category="AI")
 	TObjectPtr<UBehaviorTree> BehaviorTree;
+	
 	
 	virtual void BeginPlay() override;
 	

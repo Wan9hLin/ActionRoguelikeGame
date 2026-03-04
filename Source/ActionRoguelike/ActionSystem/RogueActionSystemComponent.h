@@ -36,11 +36,15 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FOnHealthChanged OnHealthChanged;
 	
+	URogueActionSystemComponent();
+	bool IsFullHealth() const;
+	
+	float GetMaxHealth() const;
+	float GetHealth() const;
+	
 protected:
 	UPROPERTY(BlueprintReadOnly, Category="Attributes")
 	FRogueAttributeSet Attributes;
+	
 
-public:
-	URogueActionSystemComponent();
-	bool IsFullHealth() const;
 };
