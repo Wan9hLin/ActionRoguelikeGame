@@ -19,3 +19,4 @@ class ACTIONROGUELIKE_API URogueBTTask_HealSelf : public UBTTaskNode
 	
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 };
+ 

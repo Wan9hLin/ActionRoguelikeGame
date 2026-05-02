@@ -3,12 +3,28 @@
 
 #include "RogueActionSystemComponent.h"
 
+#include "RogueAction.h"
+
 // Sets default values for this component's properties
 URogueActionSystemComponent::URogueActionSystemComponent()
 {
 	Attributes.Health = Attributes.MaxHealth;
 }
 
+
+void URogueActionSystemComponent::StartAction(FName InActionName)
+{
+	for (URogueAction* Action: Actions)
+	{
+		if (Action->GetActionName() == InActionName)
+		{
+			Action->StrartAction();
+			return;
+		}
+	}
+	
+	UE_LOG(LogTemp, Warning, TEXT("Nor Action found with name %s"), *InActionName.ToString());
+}
 
 void URogueActionSystemComponent::ApplyHealthChange(float InValueChange)
 {
