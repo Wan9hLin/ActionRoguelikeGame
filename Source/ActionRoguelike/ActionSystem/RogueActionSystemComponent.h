@@ -46,6 +46,8 @@ public:
 	float GetMaxHealth() const;
 	float GetHealth() const;
 	
+	virtual void InitializeComponent() override;
+	
 protected:
 	UPROPERTY(BlueprintReadOnly, Category="Attributes")
 	FRogueAttributeSet Attributes;

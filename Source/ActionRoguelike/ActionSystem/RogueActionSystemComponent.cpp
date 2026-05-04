@@ -9,6 +9,15 @@
 URogueActionSystemComponent::URogueActionSystemComponent()
 {
 	Attributes.Health = Attributes.MaxHealth;
+	bWantsInitializeComponent = true;
+}
+
+void URogueActionSystemComponent::InitializeComponent()
+{
+	Super::InitializeComponent();
+	
+	URogueAction* NewAction = NewObject<URogueAction>(this, URogueAction::StaticClass());
+	Actions.Add(NewAction);
 }
 
 
@@ -55,3 +64,5 @@ float URogueActionSystemComponent::GetHealth() const
 {
 	return Attributes.Health;
 }
+
+

@@ -57,8 +57,9 @@ void ARoguePlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInp
 	EnhancedInput->BindAction(Input_Look, ETriggerEvent::Triggered, this, &ARoguePlayerCharacter::Look);
 	EnhancedInput->BindAction(Input_Jump, ETriggerEvent::Triggered, this, &ARoguePlayerCharacter::StartJump);
 	
+	// projectile Attacks
 	EnhancedInput->BindAction(Input_PrimaryAttack, ETriggerEvent::Triggered, this, 
-		&ARoguePlayerCharacter::StartProjectileAttack, ProjectileMagicClass);
+		&ARoguePlayerCharacter::StartAction, FName("PrimaryAttack"));
 	EnhancedInput->BindAction(Input_SecondaryAttack, ETriggerEvent::Triggered, this, 
 		&ARoguePlayerCharacter::StartProjectileAttack, ProjectileBlackholeClass);
 	EnhancedInput->BindAction(Input_Skill, ETriggerEvent::Triggered, this, 
@@ -164,6 +165,11 @@ void ARoguePlayerCharacter::AttackTimerElapsed(TSubclassOf<ARogueProjectile> Pro
 			false, DebugDrawDuration);
 	}
 #endif
+}
+
+void ARoguePlayerCharacter::StartAction(FName InActionName)
+{
+	ActionSystemComponent->StartAction(InActionName);
 }
 
 void ARoguePlayerCharacter::OnHealthChange(float newHealth, float oldHealth)

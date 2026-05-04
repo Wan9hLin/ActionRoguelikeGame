@@ -17,7 +17,7 @@ class ACTIONROGUELIKE_API URogueAction : public UObject
 protected:
 	
 	UPROPERTY(EditAnywhere, Category="Actions")
-	FName ActionName;
+	FName ActionName = FName("PrimaryAttack");
 	
 public:
 	
