@@ -2,8 +2,7 @@
 
 
 #include "RogueAction.h"
-
-
+#include "RogueActionSystemComponent.h"
 
 
 void URogueAction::StrartAction()
@@ -14,4 +13,10 @@ void URogueAction::StrartAction()
 	UE_LOGFMT(LogTemp, Log, "Started Action {ActionName} - {WorldTime}", 
 		("ActionName", ActionName), 
 		("WorldTime", GameTime));
+}
+
+
+URogueActionSystemComponent* URogueAction::GetOwningComponent() const
+{
+	return Cast<URogueActionSystemComponent>(GetOuter());
 }

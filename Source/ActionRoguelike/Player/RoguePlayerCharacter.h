@@ -7,8 +7,6 @@
 #include "RoguePlayerCharacter.generated.h"
 
 class URogueActionSystemComponent;
-class ARogueProjectile;
-class UNiagaraSystem;
 struct FInputActionInstance;
 struct FInputActionValue;
 class UInputAction;
@@ -26,27 +24,6 @@ public:
 	ARoguePlayerCharacter();
 
 protected:
-	
-	UPROPERTY(EditDefaultsOnly, Category="PrimaryAttack")
-	TSubclassOf<ARogueProjectile> ProjectileMagicClass;
-	
-	UPROPERTY(EditDefaultsOnly, Category="PrimaryAttack")
-	TSubclassOf<ARogueProjectile> ProjectileBlackholeClass;
-	
-	UPROPERTY(EditDefaultsOnly, Category="PrimaryAttack")
-	TSubclassOf<ARogueProjectile> ProjectileTeleportClass;
-	
-	UPROPERTY(EditDefaultsOnly, Category="PrimaryAttack")
-	TObjectPtr<UNiagaraSystem> CastingEffect;
-	
-	UPROPERTY(EditDefaultsOnly, Category="PrimaryAttack")
-	TObjectPtr<USoundBase> CastingSound;
-	 
-	UPROPERTY(VisibleAnywhere, Category="PrimaryAttack")
-	FName MuzzleSocketName;
-	
-	UPROPERTY(EditDefaultsOnly, Category="PrimaryAttack")
-	TObjectPtr<UAnimMontage> AttackMontage;
 	
 	UPROPERTY(EditDefaultsOnly, Category="Death")
 	TObjectPtr<UAnimMontage> DeathMontage;
@@ -83,10 +60,6 @@ protected:
 	void Look(const FInputActionInstance& InValue);
 	
 	void StartJump();
-	
-	void StartProjectileAttack(TSubclassOf<ARogueProjectile> ProjectileClass);
-	
-	void AttackTimerElapsed(TSubclassOf<ARogueProjectile> ProjectileClass);
 	
 	void StartAction(FName InActionName);
 	
