@@ -23,10 +23,14 @@ protected:
 	
 public:
 	
+	UFUNCTION(BlueprintCallable)
 	URogueActionSystemComponent* GetOwningComponent() const;
 
+	UFUNCTION(BlueprintNativeEvent, Category = "Actions")
+	void StrartAction();
 	
-	virtual void StrartAction();
+	UFUNCTION(BlueprintNativeEvent, Category = "Actions")
+	void StopAction();
 	
 	// implementaion inline
 	FName GetActionName() const

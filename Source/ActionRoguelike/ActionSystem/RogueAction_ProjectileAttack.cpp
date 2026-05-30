@@ -21,9 +21,9 @@ URogueAction_ProjectileAttack::URogueAction_ProjectileAttack()
 	MuzzleSocketName = "Muzzle_01";
 }
 
-void URogueAction_ProjectileAttack::StrartAction()
+void URogueAction_ProjectileAttack::StrartAction_Implementation()
 {
-	Super::StrartAction();
+	Super::StrartAction_Implementation();
 	
 	URogueActionSystemComponent* ActionComp = GetOwningComponent();
 	ACharacter* Character = CastChecked<ACharacter>(ActionComp->GetOwner());
