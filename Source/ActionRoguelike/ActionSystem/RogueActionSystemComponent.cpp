@@ -38,7 +38,11 @@ void URogueActionSystemComponent::StartAction(FName InActionName)
 	{
 		if (Action->GetActionName() == InActionName)
 		{
-			Action->StrartAction();
+			if (Action->CanStart())
+			{
+				Action->StrartAction();			
+			}
+			
 			return;
 		}
 	}
