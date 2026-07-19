@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayTagContainer.h"
 #include "UObject/Object.h"
 #include "RogueAction.generated.h"
 
@@ -19,7 +20,7 @@ class ACTIONROGUELIKE_API URogueAction : public UObject
 protected:
 	
 	UPROPERTY(EditAnywhere, Category="Actions")
-	FName ActionName;
+	FGameplayTag ActionName;
 	
 	UPROPERTY(EditAnywhere, Category="Actions")
 	float CooldownTime = 0.0f;
@@ -43,7 +44,7 @@ public:
 	void StopAction();
 	
 	// implementaion inline
-	FName GetActionName() const
+	FGameplayTag GetActionName() const
 	{
 		return ActionName;
 	}

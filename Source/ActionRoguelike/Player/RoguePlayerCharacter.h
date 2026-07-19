@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "RoguePlayerCharacter.generated.h"
 
+struct FGameplayTag;
 class URogueActionSystemComponent;
 struct FInputActionInstance;
 struct FInputActionValue;
@@ -64,9 +65,9 @@ protected:
 	
 	void StartJump();
 	
-	void StartAction(FName InActionName);
+	void StartAction(FGameplayTag InActionName);
 	
-	void StopAction(FName InActionName);
+	void StopAction(FGameplayTag InActionName);
 	
 	UFUNCTION()
 	void OnHealthChange(float newHealth, float oldHealth);
