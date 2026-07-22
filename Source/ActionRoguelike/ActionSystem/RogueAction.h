@@ -23,6 +23,12 @@ protected:
 	FGameplayTag ActionName;
 	
 	UPROPERTY(EditAnywhere, Category="Actions")
+	FGameplayTagContainer GrantTags;
+	
+	UPROPERTY(EditAnywhere, Category="Actions")
+	FGameplayTagContainer BlockedTags;
+	
+	UPROPERTY(EditAnywhere, Category="Actions")
 	float CooldownTime = 0.0f;
 	
 public:

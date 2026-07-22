@@ -13,6 +13,8 @@ void URogueAction::StrartAction_Implementation()
 	UE_LOGFMT(LogTemp, Log, "Started Action {ActionName} - {WorldTime}", 
 		("ActionName", ActionName.ToString()), 
 		("WorldTime", GameTime));
+	
+	GetOwningComponent()->ActiveGameplayTags.AppendTags(GrantTags);
 }
 
 
@@ -26,6 +28,8 @@ void URogueAction::StopAction_Implementation()
 		("WorldTime", GameTime));
 	
 	CooldownUntil = GetWorld()->TimeSeconds + CooldownTime;
+	
+	GetOwningComponent()->ActiveGameplayTags.RemoveTags(GrantTags);
 }
 
 bool URogueAction::CanStart() const
@@ -38,6 +42,11 @@ bool URogueAction::CanStart() const
 	if (GetCooldownTimeRemaining() > 0.0f)
 	{
 		UE_LOG(LogTemp, Log, TEXT("Cooldown remaining: %f"), GetCooldownTimeRemaining());
+		return false;
+	}
+	
+	if (GetOwningComponent()->ActiveGameplayTags.HasAny(BlockedTags))
+	{
 		return false;
 	}
 	
