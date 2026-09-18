@@ -9,6 +9,7 @@
 
 class URogueAction;	
 class URogueAttributeSet;
+struct  FRogueAttribute;
 
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHealthChanged, float, NewHealth, float, OldHealth);
@@ -32,8 +33,7 @@ public:
 	
 	bool IsFullHealth() const;
 	
-	float GetMaxHealth() const;
-	float GetHealth() const;
+	FRogueAttribute* GetAttribute(FGameplayTag InAttributeTag);
 	
 	virtual void InitializeComponent() override;
 	
@@ -45,6 +45,8 @@ protected:
 	
 	UPROPERTY()
 	TObjectPtr<URogueAttributeSet> Attributes;
+	
+	TMap<FGameplayTag, FRogueAttribute*> CachedAttributes;
 	
 	UPROPERTY(EditAnywhere, Category=Attributes, NoClear)
 	TSubclassOf<URogueAttributeSet> AttributeSetClass;
