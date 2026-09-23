@@ -3,6 +3,7 @@
 
 #include "RogueBTTask_HealSelf.h"
 #include "RogueAIController.h"
+#include "SharedGameplayTag.h"
 #include "ActionSystem/RogueActionSystemComponent.h"
 #include "GameFramework/Character.h"
 
@@ -14,7 +15,7 @@ EBTNodeResult::Type URogueBTTask_HealSelf::ExecuteTask(UBehaviorTreeComponent& O
 	URogueActionSystemComponent* ActionComp = Pawn->GetComponentByClass<URogueActionSystemComponent>();
 	if (ensure(ActionComp))
 	{
-		ActionComp->ApplyHealthChange(HealAmount);
+		ActionComp->ApplyAttributeChange(SharedGameplayTag::Attribute_Health, HealAmount, Base);
 		return EBTNodeResult::Succeeded;
 	}
 	

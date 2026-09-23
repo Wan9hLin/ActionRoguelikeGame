@@ -3,6 +3,7 @@
 
 #include "RogueAICharacter.h"
 
+#include "SharedGameplayTag.h"
 #include "ActionSystem/RogueActionSystemComponent.h"
 
 
@@ -16,7 +17,7 @@ float ARogueAICharacter::TakeDamage(float DamageAmount, struct FDamageEvent cons
 {
 	float ActualDamage = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
 	
-	ActionSystemComponent->ApplyHealthChange(-ActualDamage);
+	ActionSystemComponent->ApplyAttributeChange(SharedGameplayTag::Attribute_Health, -ActualDamage, Base);
 	
 	return ActualDamage;
 }

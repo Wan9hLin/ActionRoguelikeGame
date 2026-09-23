@@ -11,6 +11,15 @@ class URogueAction;
 class URogueAttributeSet;
 struct  FRogueAttribute;
 
+UENUM()
+enum EAttributeModifyType
+{
+	Base,
+	Modifier,
+	OverrideBase,
+	Invalid
+};
+
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnHealthChanged, float, NewHealth, float, OldHealth);
 
@@ -28,10 +37,10 @@ public:
 	
 	void ApplyHealthChange(float InValueChange);
 	
+	void ApplyAttributeChange(FGameplayTag AttributeTag, float Delta, EAttributeModifyType ModifyType);
+	
 	UPROPERTY(BlueprintAssignable)
 	FOnHealthChanged OnHealthChanged;
-	
-	bool IsFullHealth() const;
 	
 	FRogueAttribute* GetAttribute(FGameplayTag InAttributeTag);
 	

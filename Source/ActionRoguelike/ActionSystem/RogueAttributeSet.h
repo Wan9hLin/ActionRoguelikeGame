@@ -37,6 +37,9 @@ UCLASS()
 class ACTIONROGUELIKE_API URogueAttributeSet : public UObject
 {
 	GENERATED_BODY()
+	
+public:
+	virtual void PostAttributeChanged() {};
 };
 
 UCLASS()
@@ -50,6 +53,8 @@ public:
 	
 	UPROPERTY(EditAnywhere, Category=Attributes);
 	FRogueAttribute	HealthMax;
+	
+	virtual void PostAttributeChanged() override;
 	
 	URogueHealthAttributeSet();
 };

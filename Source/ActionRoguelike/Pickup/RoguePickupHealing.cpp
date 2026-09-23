@@ -2,7 +2,10 @@
 
 
 #include "RoguePickupHealing.h"
+
+#include "SharedGameplayTag.h"
 #include "ActionSystem/RogueActionSystemComponent.h"
+#include "Core/RogueGameplayStatics.h"
 #include "Kismet/GameplayStatics.h"
 
 
@@ -21,9 +24,9 @@ void ARoguePickupHealing::OnSphereOverlap(UPrimitiveComponent* OverlappedCompone
 	
 	// Assert if null, then we misconfigured what we can overlap whith
 	// Skip healing if already full health
-	if (ensure(ActionComp != nullptr) && !ActionComp->IsFullHealth())
+	if (ensure(ActionComp != nullptr) && !URogueGameplayStatics::IsFullHealth(ActionComp))
 	{
-		ActionComp->ApplyHealthChange(healingPoint);
+		ActionComp->ApplyAttributeChange(SharedGameplayTag::Attribute_Health, healingPoint, Base);
 		
 		UGameplayStatics::PlaySoundAtLocation(this, PickupSound, GetActorLocation(), FRotator::ZeroRotator);
 	
