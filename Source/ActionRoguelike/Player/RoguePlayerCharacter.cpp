@@ -33,7 +33,9 @@ ARoguePlayerCharacter::ARoguePlayerCharacter()
 void ARoguePlayerCharacter::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
-	ActionSystemComponent->OnHealthChanged.AddDynamic(this,&ARoguePlayerCharacter::OnHealthChange);
+
+	FOnAttributeChanged& Event = ActionSystemComponent->GetAttributeListener(SharedGameplayTag::Attribute_Health);
+	Event.AddUObject(this, &ThisClass::OnHealthChange);
 }
 
 
@@ -103,7 +105,7 @@ void ARoguePlayerCharacter::StopAction(FGameplayTag InActionName)
 	ActionSystemComponent->StopAction(InActionName);
 }
 
-void ARoguePlayerCharacter::OnHealthChange(float newHealth, float oldHealth)
+void ARoguePlayerCharacter::OnHealthChange(FGameplayTag AttributeTag, float newHealth, float oldHealth)
 {
 	//Died?
 	if (FMath::IsNearlyZero(newHealth))
