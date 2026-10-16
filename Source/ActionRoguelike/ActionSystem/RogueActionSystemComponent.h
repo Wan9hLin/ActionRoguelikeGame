@@ -11,7 +11,7 @@ class URogueAction;
 class URogueAttributeSet;
 struct  FRogueAttribute;
 
-UENUM()
+UENUM(BlueprintType)
 enum EAttributeModifyType
 {
 	Base,
@@ -35,8 +35,7 @@ public:
 	
 	void StopAction(FGameplayTag InActionName);
 	
-	void ApplyHealthChange(float InValueChange);
-	
+	UFUNCTION(BlueprintCallable)
 	void ApplyAttributeChange(FGameplayTag AttributeTag, float Delta, EAttributeModifyType ModifyType);
 	
 	FRogueAttribute* GetAttribute(FGameplayTag InAttributeTag);
@@ -68,6 +67,8 @@ protected:
 	TArray<TSubclassOf<URogueAction>> DefaultActions;
 	
 public:
+	
+	virtual void BeginPlay() override;
 	
 	URogueActionSystemComponent();
 };

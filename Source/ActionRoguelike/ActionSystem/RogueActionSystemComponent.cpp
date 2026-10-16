@@ -8,6 +8,7 @@
 #include "SharedGameplayTag.h"
 
 
+
 // Sets default values for this component's properties
 URogueActionSystemComponent::URogueActionSystemComponent()
 {
@@ -40,6 +41,14 @@ void URogueActionSystemComponent::InitializeComponent()
 			GrantAction(ActionClass);
 		}
 	}
+}
+
+void URogueActionSystemComponent::BeginPlay()
+{
+	Super::BeginPlay();
+	
+	Attributes->InitializeAttributes();
+	
 }
 
 void URogueActionSystemComponent::GrantAction(TSubclassOf<URogueAction> NewActionClass)
