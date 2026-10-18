@@ -31,6 +31,9 @@ protected:
 	UPROPERTY(EditAnywhere, Category="Actions")
 	float CooldownTime = 0.0f;
 	
+	UPROPERTY(EditAnywhere, Category="Actions")
+	TMap<FGameplayTag, float> ActivationCost;
+	
 public:
 	
 	UFUNCTION(BlueprintCallable)
