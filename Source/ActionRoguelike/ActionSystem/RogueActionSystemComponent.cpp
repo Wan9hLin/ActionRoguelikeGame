@@ -16,7 +16,7 @@ URogueActionSystemComponent::URogueActionSystemComponent()
 }
 
 void URogueActionSystemComponent::InitializeComponent()
-{
+{   
 	Super::InitializeComponent();
 	
 	//Fallback for blueprint or CPP have not defined a default
@@ -96,7 +96,10 @@ void URogueActionSystemComponent::StopAction(FGameplayTag InActionName)
 	{
 		if (Action->GetActionName() == InActionName)
 		{
-			Action->StopAction();
+			if (Action->IsRunning())
+			{
+				Action->StopAction();
+			}
 			return;
 		}
 	}
