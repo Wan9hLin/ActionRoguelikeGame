@@ -11,6 +11,8 @@
 ARogueProjectileMagic::ARogueProjectileMagic()
 {
 	ProjectileMovementComponent->InitialSpeed = 2000.0f;
+	
+	InitialLifeSpan = 8.0f;
 }
 
 

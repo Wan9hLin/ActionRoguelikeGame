@@ -3,6 +3,7 @@
 
 #include "RogueBTDecorator_CheckLowHealth.h"
 #include "AIController.h"
+#include "SharedGameplayTag.h"
 #include "ActionSystem/RogueActionSystemComponent.h"
 
 
@@ -15,8 +16,10 @@ bool URogueBTDecorator_CheckLowHealth::CalculateRawConditionValue(UBehaviorTreeC
 	URogueActionSystemComponent* ActionComp = Pawn->GetComponentByClass<URogueActionSystemComponent>();
 	if (ensure(ActionComp))
 	{
-		check(false);
-		return false; //(ActionComp->GetHealth() / ActionComp->GetMaxHealth()) < LowHealthPercent;
+		float HealthFraction = ActionComp->GetAttributeValue(SharedGameplayTag::Attribute_Health) / 
+			ActionComp->GetAttributeValue(SharedGameplayTag::Attribute_HealthMax);
+		
+		return HealthFraction < LowHealthPercent;
 	}
 	
 	return false;
