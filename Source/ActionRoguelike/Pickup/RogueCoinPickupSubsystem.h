@@ -30,6 +30,8 @@ public:
 	
 protected:
 	
+	void OnPickupMeshLoadComplete(const FSoftObjectPath& SoftObjectPath, UObject* LoadedObject);
+	
 	UPROPERTY()
 	TObjectPtr<UInstancedStaticMeshComponent> WorldISM;
 	
