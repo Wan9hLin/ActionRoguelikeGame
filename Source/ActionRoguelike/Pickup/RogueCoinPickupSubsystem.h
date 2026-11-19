@@ -32,8 +32,18 @@ protected:
 	
 	void OnPickupMeshLoadComplete(const FSoftObjectPath& SoftObjectPath, UObject* LoadedObject);
 	
+	void OnPickupSoundLoadComplete(const FSoftObjectPath& SoftObjectPath, UObject* LoadedObject);
+	
+	void PlayPickupSound();
+	
 	UPROPERTY()
 	TObjectPtr<UInstancedStaticMeshComponent> WorldISM;
+	
+	UPROPERTY()
+	TObjectPtr<UAudioComponent> WorldAudioComp;
+	
+	/*Cached Param for Developer Settings for Audio Comp Pickups*/
+	FName CoinPickupTriggerParameterName;
 	
 	TArray<FVector> CoinLocations;
 	TArray<int32> CoinAmounts;
