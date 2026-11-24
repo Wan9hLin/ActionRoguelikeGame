@@ -58,7 +58,7 @@ The coin system was designed for large counts, then measured and tuned with Unre
 
 - **Instrumentation:** `TRACE_CPUPROFILER_EVENT_SCOPE` scopes cover the tick, the distance pass, pickup handling, and adding/removing coins. A `Coins in World` trace counter shows the coin count over time, and the subsystem's tick is also reported under `stat Tickables`.
 - **Data layout:** Locations, amounts, and instance IDs live in separate arrays (structure of arrays). The per-frame distance pass reads only the contiguous location array.
-- **CPU:** Coins are removed with `RemoveAtSwap` without shrinking: constant time per coin and no reallocations. Debug drawing and logging are compiled out of the hot path.
+- **CPU:** Coins are removed with `RemoveAtSwap` without shrinking instead of `RemoveAt`: constant time per coin and no reallocations. In comparable Unreal Insights captures of lever-spawned coins, the average `RemoveCoinPickup` call dropped from 2.74 µs to 1.20 µs (−56%), and the median from 2.07 µs to about 0.1 µs. Total removal time fell from 8.29 ms to 4.29 ms, even though the second capture removed 18% more coins (3,563 vs. 3,027). Debug drawing and logging are compiled out of the hot path.
 - **GPU:** Adding and removing instances triggered Global Distance Field updates, so the coin ISM is excluded from distance field lighting. It also has collision disabled, since pickups use the distance pass.
 - **Loading:** The coin mesh and pickup sound are soft references in Project Settings. They load asynchronously when the world begins play, without blocking the game thread.
 
