@@ -12,4 +12,5 @@ namespace SharedGameplayTag
 	UE_DEFINE_GAMEPLAY_TAG(Action_Sprint, "Action.Sprint");
 	UE_DEFINE_GAMEPLAY_TAG(Attribute_Rage, "Attribute.Rage");
 	UE_DEFINE_GAMEPLAY_TAG(StatusEffect_Sprinting, "StatusEffect.Sprinting");
+	UE_DEFINE_GAMEPLAY_TAG(StatusEffect_Stunned, "StatusEffect.Stunned");
 }
