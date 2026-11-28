@@ -52,13 +52,17 @@ public:
 	UFUNCTION(BlueprintNativeEvent, Category = "Actions")
 	void StopAction();
 	
-	// implementaion inline
+	float GetCooldownTimeRemaining() const;
+	
 	FGameplayTag GetActionName() const
 	{
 		return ActionName;
 	}
 	
-	float GetCooldownTimeRemaining() const;
+	virtual bool ImplementsGetWorld() const override
+	{
+		return true;
+	}
 	
 protected:
 	// GameTime until the Action is available again
